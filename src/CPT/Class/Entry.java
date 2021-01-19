@@ -1,4 +1,4 @@
-package CPT;
+package CPT.Class;
 
 public class Entry {
     private String strCountry;
