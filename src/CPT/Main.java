@@ -14,12 +14,14 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //Startup Loading
         Stage startstage = new Stage(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("fxml/Startup.fxml"));
-        primaryStage.setTitle("World Happiness Ranking");
         startstage.centerOnScreen();
         startstage.setScene(new Scene(root));
         startstage.show();
 
     }
+
+    
 }
