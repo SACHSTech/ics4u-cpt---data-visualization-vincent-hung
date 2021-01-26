@@ -87,14 +87,14 @@ public class Entry {
         this.dblCorruption = new SimpleDoubleProperty(strchange);
     }
 
-    public ArrayList<Entry> loadEntries(String filename) {
+    public static ArrayList<Entry> loadEntries(String filename) {
             ArrayList<Entry> EntryList = new ArrayList<>();
             String strread;
         try {
             BufferedReader fr = new BufferedReader(new FileReader("CPT/" + filename + ".csv"));
             while ((strread = fr.readLine()) != null) {
                 String[] EntrySplit = strread.split(",");
-
+                
                 Entry loader = new Entry(strread, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
                 loader.setCountry(EntrySplit[0]);
