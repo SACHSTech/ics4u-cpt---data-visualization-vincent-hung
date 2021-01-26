@@ -1,4 +1,4 @@
-package CPT.Class;
+package CPT;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,10 +19,10 @@ public class Entry {
     private DoubleProperty dblGenerosity;
     private DoubleProperty dblCorruption;
 
-    public Entry(String givenCountry, double givenScore, double givenSocial, double givenExpectancy,
+    public Entry(double givenScore, String givenCountry, double givenSocial, double givenExpectancy,
             double givenFreedom, double givenGenerosity, double givenCorruption) {
-        this.strCountry = new SimpleStringProperty(givenCountry);
         this.dblScore = new SimpleDoubleProperty(givenScore);
+        this.strCountry = new SimpleStringProperty(givenCountry);
         this.dblSocial = new SimpleDoubleProperty(givenSocial);
         this.dblLifeExpectancy = new SimpleDoubleProperty(givenExpectancy);
         this.dblFreedom = new SimpleDoubleProperty(givenFreedom);
@@ -91,14 +91,14 @@ public class Entry {
             ArrayList<Entry> EntryList = new ArrayList<>();
             String strread;
         try {
-            BufferedReader fr = new BufferedReader(new FileReader("CPT/" + filename + ".csv"));
+            BufferedReader fr = new BufferedReader(new FileReader("src/CPT/" + filename + ".csv"));
             while ((strread = fr.readLine()) != null) {
                 String[] EntrySplit = strread.split(",");
                 
-                Entry loader = new Entry(strread, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+                Entry loader = new Entry(0.0,strread, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-                loader.setCountry(EntrySplit[0]);
-                loader.setScore(Double.parseDouble(EntrySplit[1]));
+                loader.setScore(Double.parseDouble(EntrySplit[0]));
+                loader.setCountry(EntrySplit[1]);
                 loader.setSocial(Double.parseDouble(EntrySplit[2]));
                 loader.setExpectancy(Double.parseDouble(EntrySplit[3]));
                 loader.setFreedom(Double.parseDouble(EntrySplit[4]));
