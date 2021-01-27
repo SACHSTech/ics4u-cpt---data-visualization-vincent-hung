@@ -42,7 +42,7 @@ public class EntryList {
     public static ArrayList<Double> grabAllScores(ArrayList<Entry> EntryList) {
         ArrayList<Double> temp = new ArrayList<Double>();
         for (Entry entries : EntryList) {
-            temp.add(entries.getScore());
+            temp.add(entries.getScore().getValue());
         }
         return temp;
     }

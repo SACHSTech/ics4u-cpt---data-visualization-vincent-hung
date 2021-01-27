@@ -5,90 +5,101 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Entry {
-    private int intRanking;
-    private String strCountry;
-    private Double dblScore;
-    private Double dblSocial;
-    private Double dblLifeExpectancy;
-    private Double dblFreedom;
-    private Double dblGenerosity;
-    private Double dblCorruption;
+    private IntegerProperty intRanking;
+    private StringProperty strCountry;
+    private DoubleProperty dblScore;
+    private DoubleProperty dblSocial;
+    private DoubleProperty dblLifeExpectancy;
+    private DoubleProperty dblFreedom;
+    private DoubleProperty dblGenerosity;
+    private DoubleProperty dblCorruption;
 
     public Entry(int givenRanking, String givenCountry, double givenScore, double givenSocial, double givenExpectancy,
             double givenFreedom, double givenGenerosity, double givenCorruption) {
-        this.intRanking = givenRanking;
-        this.dblScore = givenScore;
-        this.strCountry = givenCountry;
-        this.dblSocial = givenSocial;
-        this.dblLifeExpectancy = givenExpectancy;
-        this.dblFreedom = givenFreedom;
-        this.dblGenerosity = givenGenerosity;
-        this.dblCorruption = givenCorruption;
+        this.intRanking = new SimpleIntegerProperty(givenRanking);
+        this.dblScore = new SimpleDoubleProperty(givenScore);
+        this.strCountry = new SimpleStringProperty(givenCountry);
+        this.dblSocial = new SimpleDoubleProperty(givenSocial);
+        this.dblLifeExpectancy = new SimpleDoubleProperty(givenExpectancy);
+        this.dblFreedom = new SimpleDoubleProperty(givenFreedom);
+        this.dblGenerosity = new SimpleDoubleProperty(givenGenerosity);
+        this.dblCorruption = new SimpleDoubleProperty(givenCorruption);
 
     }
-    public int getRanking() {
+    public IntegerProperty getRanking() {
         return intRanking;
     }
 
-    public String getCountry() {
+    public StringProperty getCountry() {
         return strCountry;
     }
 
-    public Double getScore() {
+    public DoubleProperty getScore() {
         return dblScore;
     }
 
-    public Double getSocial() {
+    public DoubleProperty getSocial() {
         return dblSocial;
     }
 
-    public Double getExpectancy() {
+    public DoubleProperty getExpectancy() {
         return dblLifeExpectancy;
     }
 
-    public Double getFreedom() {
+    public DoubleProperty getFreedom() {
         return dblFreedom;
     }
 
-    public Double getGenerosity() {
+    public DoubleProperty getGenerosity() {
         return dblGenerosity;
     }
 
-    public Double getCorruption() {
+    public DoubleProperty getCorruption() {
         return dblCorruption;
     }
 
     public void setRanking(int strchange) {
-        this.intRanking = strchange;
+        this.intRanking = new SimpleIntegerProperty(strchange);
     }
 
     public void setCountry(String strchange) {
-        this.strCountry = strchange;
+        this.strCountry = new SimpleStringProperty(strchange);
     }
 
     public void setScore(Double strchange) {
-        this.dblScore = strchange;
+        this.dblScore = new SimpleDoubleProperty(strchange);
     }
 
     public void setSocial(Double strchange) {
-        this.dblSocial = strchange;
+        this.dblSocial = new SimpleDoubleProperty(strchange);
     }
 
     public void setExpectancy(Double strchange) {
-        this.dblLifeExpectancy = strchange;
+        this.dblLifeExpectancy = new SimpleDoubleProperty(strchange);
     }
 
     public void setFreedom(Double strchange) {
-        this.dblFreedom = strchange;
+        this.dblFreedom = new SimpleDoubleProperty(strchange);
     }
 
     public void setGenerosity(Double strchange) {
-        this.dblGenerosity = strchange;
+        this.dblGenerosity = new SimpleDoubleProperty(strchange);
     }
 
     public void setCorruption(Double strchange) {
-        this.dblCorruption = strchange;
+        this.dblCorruption = new SimpleDoubleProperty(strchange);
+    }
+
+    public String toString() {
+        return intRanking + " " + strCountry + " " + dblScore;
     }
 
     public static ArrayList<Entry> loadEntries(String filename) {
@@ -102,14 +113,13 @@ public class Entry {
                 Entry loader = new Entry(0,strread, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
                 
                 loader.setRanking(Integer.parseInt(EntrySplit[0]));
-                loader.setScore(Double.parseDouble(EntrySplit[1]));
-                loader.setCountry(EntrySplit[2]);
+                loader.setScore(Double.parseDouble(EntrySplit[2]));
+                loader.setCountry(EntrySplit[1]);
                 loader.setSocial(Double.parseDouble(EntrySplit[3]));
                 loader.setExpectancy(Double.parseDouble(EntrySplit[4]));
                 loader.setFreedom(Double.parseDouble(EntrySplit[5]));
                 loader.setGenerosity(Double.parseDouble(EntrySplit[6]));
                 loader.setCorruption(Double.parseDouble(EntrySplit[7]));
-
                 EntryList.add(loader);
             }
                 fr.close();
