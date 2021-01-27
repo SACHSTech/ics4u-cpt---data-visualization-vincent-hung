@@ -151,30 +151,43 @@ public class HappinessReport {
     public static ObservableList<HappinessReport> loadEntries(String filename) {
         ObservableList<HappinessReport> HappinessList = FXCollections.observableArrayList();
         String strread;
-    try {
-        BufferedReader fr = new BufferedReader(new FileReader("src/CPT/" + filename + ".csv"));
-        while ((strread = fr.readLine()) != null) {
-            String[] FileSplit = strread.split(",");
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader("src/CPT/" + filename + ".csv"));
+            while ((strread = fr.readLine()) != null) {
+                String[] FileSplit = strread.split(",");
             
-            HappinessReport loader = new HappinessReport(0,strread, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+                HappinessReport loader = new HappinessReport(0,strread, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-            loader.setRanking(Integer.parseInt(FileSplit[0]));
-            loader.setCountry(FileSplit[1]);
-            loader.setScore(Double.parseDouble(FileSplit[2]));
-            loader.setGDP(Double.parseDouble(FileSplit[3]));
-            loader.setSocial(Double.parseDouble(FileSplit[4]));
-            loader.setExpectancy(Double.parseDouble(FileSplit[5]));
-            loader.setFreedom(Double.parseDouble(FileSplit[6]));
-            loader.setGenerosity(Double.parseDouble(FileSplit[7]));
-            loader.setCorruption(Double.parseDouble(FileSplit[8]));
-            HappinessList.add(loader);
+                loader.setRanking(Integer.parseInt(FileSplit[0]));
+                loader.setCountry(FileSplit[1]);
+                loader.setScore(Double.parseDouble(FileSplit[2]));
+                loader.setGDP(Double.parseDouble(FileSplit[3]));
+                loader.setSocial(Double.parseDouble(FileSplit[4]));
+                loader.setExpectancy(Double.parseDouble(FileSplit[5]));
+                loader.setFreedom(Double.parseDouble(FileSplit[6]));
+                loader.setGenerosity(Double.parseDouble(FileSplit[7]));
+                loader.setCorruption(Double.parseDouble(FileSplit[8]));
+                HappinessList.add(loader);
+            }
+                fr.close();
+        } catch (IOException e) {
+            //Catch Statement
+            e.printStackTrace();
+            System.out.println("Error at Entry.loadEntries");
         }
-            fr.close();
-    } catch (IOException e) {
-        //Catch Statement
-        e.printStackTrace();
-        System.out.println("Error at Entry.loadEntries");
+    return HappinessList;
     }
-return HappinessList;
-}
+    public ObservableList<HappinessReport> search(String searchitem, ObservableList<HappinessReport> data) {
+        // Declare variables
+        ObservableList<HappinessReport> searchedList = FXCollections.observableArrayList();
+
+        // Linear search
+        for (HappinessReport test: data) {
+            if (test.getCountry().contains(searchitem)) {
+                searchedList.add(test);
+            }
+        }
+        // Return the list
+        return searchedList;
+    }
 }

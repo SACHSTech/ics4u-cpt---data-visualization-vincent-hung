@@ -33,10 +33,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String filename = "2019";
         final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
-        primaryStage.setScene(new Scene(createLineGraph(data)));
+        primaryStage.setScene(new Scene(createTable(data)));
+        primaryStage.show();
         //ObservableList<String> CountryList = (ObservableList<String>) data.get(1);
         //System.out.println(data.get(0).strCountryProperty().getValue());
-        primaryStage.show();
     }
 
     public Parent createTable(ObservableList<HappinessReport> data) { 
