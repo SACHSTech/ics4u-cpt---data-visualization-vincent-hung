@@ -33,7 +33,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String filename = "2019";
         final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
-        //primaryStage.setScene(new Scene(createContent(data)));
+        primaryStage.setScene(new Scene(createLineGraph(data)));
         //ObservableList<String> CountryList = (ObservableList<String>) data.get(1);
         //System.out.println(data.get(0).strCountryProperty().getValue());
         primaryStage.show();
@@ -132,6 +132,7 @@ public class Main extends Application {
             linechart.getData().add(LineChartSeries);
         }
         linechart.setTitle("Horizontal Bar Chart Example");
+        linechart.setVerticalGridLinesVisible(false);
         linechart.setLegendVisible(false);
         return linechart;
     }
