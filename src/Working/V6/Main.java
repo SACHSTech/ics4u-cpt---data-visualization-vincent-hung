@@ -56,11 +56,11 @@ public class Main extends Application {
         //primaryStage.setScene(new Scene(createTable(data)));
         //ObservableList<String> CountryList = (ObservableList<String>) data.get(1);
         //System.out.println(data.get(0).strCountryProperty().getValue());
-        tabUI(searchitem, data, primaryStage);
+        tabletabUI(searchitem, loaddata, primaryStage);
 
     }
 
-    private void tabUI(String searchitem, ObservableList<HappinessReport> data, Stage primaryStage) {
+    private void tabletabUI(String searchitem, ObservableList<HappinessReport> data, Stage primaryStage) {
         //Main Menu/Tabs
         tabPane = new TabPane();
         tabPane.setPrefSize(1000,800);
@@ -68,7 +68,6 @@ public class Main extends Application {
         BarChartTab = new Tab();
         LineGraphTab = new Tab();
 
-//TableTab
         //TableTab Setup
         TableTab.setText("TableTab");
         TableTab.setTooltip(new Tooltip("Page with a Table"));
@@ -98,19 +97,9 @@ public class Main extends Application {
         HBox.setMargin(searchbutton, new Insets(18,0,0,10));
         //Add hbox to borderPane
         tableborderPane.setTop(tablehbox);
-
-//Bar Graph Tab
-        BarChartTab.setText("Bar Chart Tab");
-        BarChartTab.setTooltip(new Tooltip("Page with a Barchart"));
-
-//Finished Tabs
         //Add tableTab
-        tabPane.getTabs().add(0, TableTab);
+        tabPane.getTabs().add(TableTab);
         TableTab.setContent(tableborderPane);
-        //Add Bar Graph Tab
-        tabPane.getTabs().add(1, BarChartTab);
-        BarChartTab.setContent(createBarGraph(data));
-        //Show Tab Scene
         primaryStage.setScene(new Scene(tabPane));
         primaryStage.show();
     }
@@ -120,12 +109,10 @@ public class Main extends Application {
         //Table Coloumn Creation
         TableColumn rankingCol = new TableColumn();
         rankingCol.setText("Rank");
-        rankingCol.setMinWidth(40);
         rankingCol.setCellValueFactory(new PropertyValueFactory("intRanking"));
 
         TableColumn countryCol = new TableColumn();
         countryCol.setText("Country");
-        countryCol.setMinWidth(150);
         countryCol.setCellValueFactory(new PropertyValueFactory("strCountry"));
 
         TableColumn scoreCol = new TableColumn();
@@ -145,12 +132,12 @@ public class Main extends Application {
 
         TableColumn lifeexpectancyCol = new TableColumn();
         lifeexpectancyCol.setText("Life Expectancy");
-        lifeexpectancyCol.setMinWidth(100);
+        lifeexpectancyCol.setMinWidth(175);
         lifeexpectancyCol.setCellValueFactory(new PropertyValueFactory("dblLifeExpectancy"));
 
         TableColumn freedomCol = new TableColumn();
         freedomCol.setText("Freedom");
-        freedomCol.setMinWidth(60);
+        freedomCol.setMinWidth(100);
         freedomCol.setCellValueFactory(new PropertyValueFactory("dblFreedom"));
 
         TableColumn generosityCol = new TableColumn();
@@ -165,7 +152,6 @@ public class Main extends Application {
 
         final TableView tableView = new TableView();
         tableView.setItems(data);
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.getColumns().addAll(rankingCol, countryCol, scoreCol, GDPCol, socialCol, lifeexpectancyCol, freedomCol, generosityCol, corruptionCol);
         //tableView.getColumns().addAll(rankingCol, countryCol);
         return tableView;
@@ -181,7 +167,7 @@ public class Main extends Application {
         yAxis.setLabel("Score");
         //Chart Creation
         barchart = new BarChart<>(xAxis, yAxis);
-        barchart.setTitle("Score Vs Country");
+        barchart.setTitle("Horizontal Bar Chart Example");
         //Country and Score Data load into chart
         for (int intx = 0; intx < data.size(); intx++) {
             XYChart.Series barChartSeries = new XYChart.Series<>();
