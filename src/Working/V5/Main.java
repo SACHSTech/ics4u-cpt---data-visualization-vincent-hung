@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -43,8 +42,6 @@ public class Main extends Application {
     private Tab TableTab;
     private Tab BarChartTab;
     private Tab LineGraphTab;
-    private String searchitem = "";
-    private ObservableList<HappinessReport> loaddata;
     public static void main(String[] args) {
         launch(args);
     }
@@ -56,11 +53,7 @@ public class Main extends Application {
         //primaryStage.setScene(new Scene(createTable(data)));
         //ObservableList<String> CountryList = (ObservableList<String>) data.get(1);
         //System.out.println(data.get(0).strCountryProperty().getValue());
-        tabletabUI(searchitem, loaddata, primaryStage);
 
-    }
-
-    private void tabletabUI(String searchitem, ObservableList<HappinessReport> data, Stage primaryStage) {
         //Main Menu/Tabs
         tabPane = new TabPane();
         tabPane.setPrefSize(1000,800);
@@ -74,20 +67,14 @@ public class Main extends Application {
         //Setup borderPane for TableTab
         final BorderPane tableborderPane = new BorderPane();
         //Center Pane
-        loaddata = HappinessReport.search(searchitem);
-        tableborderPane.setCenter(createTable((loaddata)));
+        String searchitem = "";
+        tableborderPane.setCenter(createTable((search(searchitem, data))));
 
         //Top Section
         //hbox controls
         Label tablelabel = new Label("Search Country");
         TextField searchbox = new TextField();
         Button searchbutton = new Button("Search");
-        searchbutton.setOnAction((ActionEvent actionEvent) -> {
-                loaddata = HappinessReport.search(searchbox.getText());
-                tableborderPane.setCenter(createTable((loaddata)));
-                primaryStage.setHeight(1000);
-        });
-
         //Hbox
         HBox tablehbox = new HBox(5);
         tablehbox.getChildren().addAll(tablelabel, searchbox, searchbutton);
@@ -104,7 +91,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public Parent createTable(ObservableList<HappinessReport> data) {
+    public Parent createTable(ObservableList<HappinessReport> data) { 
         
         //Table Coloumn Creation
         TableColumn rankingCol = new TableColumn();
@@ -200,5 +187,19 @@ public class Main extends Application {
         linechart.setVerticalGridLinesVisible(false);
         linechart.setLegendVisible(false);
         return linechart;
+    }
+
+    public ObservableList<HappinessReport> search(String searchitem, ObservableList<HappinessReport> data) {
+        // Declare variables
+        ObservableList<HappinessReport> searchedList = FXCollections.observableArrayList();
+
+        // Linear search
+        for (HappinessReport test: data) {
+            if (test.getCountry().contains(searchitem)) {
+                searchedList.add(test);
+            }
+        }
+        // Return the list
+        return searchedList;
     }
 }

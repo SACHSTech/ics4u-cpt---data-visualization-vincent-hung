@@ -177,11 +177,9 @@ public class HappinessReport {
         }
     return HappinessList;
     }
-    public static ObservableList<HappinessReport> search(String searchitem) {
+    public ObservableList<HappinessReport> search(String searchitem, ObservableList<HappinessReport> data) {
         // Declare variables
         ObservableList<HappinessReport> searchedList = FXCollections.observableArrayList();
-        String filename = "2019";
-        final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
 
         // Linear search
         for (HappinessReport test: data) {

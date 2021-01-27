@@ -73,19 +73,6 @@ public class TableSearch extends Application {
         return tableView;
     }   
 
-    public ObservableList<HappinessReport> search(String searchitem) {
-        // Declare variables
-        ObservableList<HappinessReport> searchedList = FXCollections.observableArrayList();
-
-        // Linear search
-        for (HappinessReport test: data) {
-            if (test.getCountry().contains(searchitem)) {
-                searchedList.add(test);
-            }
-        }
-        // Return the list
-        return searchedList;
-    }
     @Override
     public void start(Stage primaryStage) throws Exception {
 
