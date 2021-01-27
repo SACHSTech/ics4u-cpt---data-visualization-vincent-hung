@@ -1,40 +1,34 @@
 package CPT;
 
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
-    //BarChartVariables
-    private BarChart chart;
-    private CategoryAxis xAxis;
-    private NumberAxis yAxis;
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ObservableList<HappinessReport> HappinessList;
         String filename = "2019";
-        final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
-        primaryStage.setScene(new Scene(createContent()));
-        
+        primaryStage.setScene(new Scene(createTable()));
+        HappinessList = HappinessReport.loadEntries(filename);
+        System.out.println(HappinessList);
         primaryStage.show();
     }
 
-    public Parent createTable(ObservableList<HappinessReport> data) { 
+    public Parent createTable() {
+        String filename = "2019";
+        final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
+                
         
         //Table Coloumn Creation
         TableColumn rankingCol = new TableColumn();
@@ -85,24 +79,5 @@ public class Main extends Application {
         tableView.getColumns().addAll(rankingCol, countryCol, scoreCol, GDPCol, socialCol, lifeexpectancyCol, freedomCol, generosityCol, corruptionCol);
         //tableView.getColumns().addAll(rankingCol, countryCol);
         return tableView;
-    }
- 
-    public Parent createContent(ObservableList<HappinessReport> data) {
-        //Grab List of Countries
-        ObservableList<String> years;
-        for (HappinessReport country : data) {
-            years = (country.strCountryProperty().get());
-        }
-        xAxis = new CategoryAxis();
-        xAxis.setCategories(FXCollections.<String>observableArrayList(years));
-        yAxis = new NumberAxis("Units Sold", 0.0d, 3000.0, 1000.0);
-        //Grab any for Yaxis
-        ObservableList<BarChart.Series> barChartData = FXCollections.observableArrayList(
-                new BarChart.Series("Apples", FXCollections.observableArrayList(
-                    new BarChart.Data(years.get(0), 567),
-                    new BarChart.Data(years[1], 1292),
-                    new BarChart.Data(years[2], 1292))));
-        chart = new BarChart(xAxis, yAxis, barChartData, 25.0);
-        return chart;
     }
 }
