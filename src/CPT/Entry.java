@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Entry {
+    private int intRanking;
     private String strCountry;
     private Double dblScore;
     private Double dblSocial;
@@ -14,8 +15,9 @@ public class Entry {
     private Double dblGenerosity;
     private Double dblCorruption;
 
-    public Entry(double givenScore, String givenCountry, double givenSocial, double givenExpectancy,
+    public Entry(int givenRanking, String givenCountry, double givenScore, double givenSocial, double givenExpectancy,
             double givenFreedom, double givenGenerosity, double givenCorruption) {
+        this.intRanking = givenRanking;
         this.dblScore = givenScore;
         this.strCountry = givenCountry;
         this.dblSocial = givenSocial;
@@ -24,6 +26,9 @@ public class Entry {
         this.dblGenerosity = givenGenerosity;
         this.dblCorruption = givenCorruption;
 
+    }
+    public int getRanking() {
+        return intRanking;
     }
 
     public String getCountry() {
@@ -52,6 +57,10 @@ public class Entry {
 
     public Double getCorruption() {
         return dblCorruption;
+    }
+
+    public void setRanking(int strchange) {
+        this.intRanking = strchange;
     }
 
     public void setCountry(String strchange) {
@@ -90,15 +99,16 @@ public class Entry {
             while ((strread = fr.readLine()) != null) {
                 String[] EntrySplit = strread.split(",");
                 
-                Entry loader = new Entry(0.0,strread, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-                loader.setScore(Double.parseDouble(EntrySplit[0]));
-                loader.setCountry(EntrySplit[1]);
-                loader.setSocial(Double.parseDouble(EntrySplit[2]));
-                loader.setExpectancy(Double.parseDouble(EntrySplit[3]));
-                loader.setFreedom(Double.parseDouble(EntrySplit[4]));
-                loader.setGenerosity(Double.parseDouble(EntrySplit[5]));
-                loader.setCorruption(Double.parseDouble(EntrySplit[6]));
+                Entry loader = new Entry(0,strread, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+                
+                loader.setRanking(Integer.parseInt(EntrySplit[0]));
+                loader.setScore(Double.parseDouble(EntrySplit[1]));
+                loader.setCountry(EntrySplit[2]);
+                loader.setSocial(Double.parseDouble(EntrySplit[3]));
+                loader.setExpectancy(Double.parseDouble(EntrySplit[4]));
+                loader.setFreedom(Double.parseDouble(EntrySplit[5]));
+                loader.setGenerosity(Double.parseDouble(EntrySplit[6]));
+                loader.setCorruption(Double.parseDouble(EntrySplit[7]));
 
                 EntryList.add(loader);
             }

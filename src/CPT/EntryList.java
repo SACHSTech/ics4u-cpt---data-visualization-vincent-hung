@@ -1,6 +1,5 @@
 package CPT;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EntryList {
@@ -30,13 +29,21 @@ public class EntryList {
     }
 
     public ArrayList<Entry> search(String searchitem) {
-        ArrayList<Entry> searchedlist = null;
-        for (int intx = 0 ; intx < intsize ; intx++) {
+        ArrayList<Entry> searchedlist = new ArrayList<Entry>();
+        for (Entry entries : List) {
             if (List.contains(searchitem)) {
-                searchedlist.add(List.get(intx));
+                searchedlist.add(entries);
             }
         }
 
     return searchedlist;
+    }
+
+    public static ArrayList<Double> grabAllScores(ArrayList<Entry> EntryList) {
+        ArrayList<Double> temp = new ArrayList<Double>();
+        for (Entry entries : EntryList) {
+            temp.add(entries.getScore());
+        }
+        return temp;
     }
 }
