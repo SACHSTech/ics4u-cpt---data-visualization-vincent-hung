@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -28,10 +29,12 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+    //Summary Variable
+    String[] summarylist = new String[6];
     //Chart Variables
     private BarChart barchart;
     private LineChart<String, Number> linechart;
@@ -45,6 +48,7 @@ public class Main extends Application {
     private Tab LineGraphTab;
     private String searchitem = "";
     private ObservableList<HappinessReport> loaddata;
+    private ObservableList<Double> summarydata;
     public static void main(String[] args) {
         launch(args);
     }
@@ -57,7 +61,9 @@ public class Main extends Application {
         //ObservableList<String> CountryList = (ObservableList<String>) data.get(1);
         //System.out.println(data.get(0).strCountryProperty().getValue());
         tabUI(searchitem, data, primaryStage);
-
+        //summarylist = HappinessReport.getDataSummary(data);
+        //System.out.println(summarylist[0] + "\n" + summarylist[1] + "\n" + summarylist[2] + "\n" + summarylist[3] + "\n" + summarylist[4] + "\n" + summarylist[5]);
+        primaryStage.show();
     }
 
     private void tabUI(String searchitem, ObservableList<HappinessReport> data, Stage primaryStage) {
@@ -83,6 +89,8 @@ public class Main extends Application {
         Label tablelabel = new Label("Search Country");
         TextField searchbox = new TextField();
         Button searchbutton = new Button("Search");
+        summarydata = (HappinessReport.grabAllScores(data));
+
         searchbutton.setOnAction((ActionEvent actionEvent) -> {
                 loaddata = HappinessReport.search(searchbox.getText());
                 tableborderPane.setCenter(createTable((loaddata)));
@@ -90,7 +98,7 @@ public class Main extends Application {
         });
 
         //Hbox
-        HBox tablehbox = new HBox(5);
+        HBox tablehbox = new HBox();
         tablehbox.getChildren().addAll(tablelabel, searchbox, searchbutton);
         tablehbox.setPrefHeight(60);
         HBox.setMargin(tablelabel, new Insets(20,0,0,10));
@@ -98,7 +106,18 @@ public class Main extends Application {
         HBox.setMargin(searchbutton, new Insets(18,0,0,10));
         //Add hbox to borderPane
         tableborderPane.setTop(tablehbox);
-
+        //Grabbing Summary Data String
+        summarylist = HappinessReport.getDataSummary(data);
+        //Vbox
+        VBox summarybox = new VBox();
+        Label summarrytitlelabel = new Label("Entire Data Summary");
+        summarrytitlelabel.setAlignment(Pos.CENTER);
+        Label summaryrow1label = new Label("Total: " + summarylist[0] + " | Max: " + summarylist[1] + " | Min: " + summarylist[2]);
+        Label summaryrow2label = new Label("Average: " + summarylist[3] + " | Median: " + summarylist[4] + " | Deviation: " + summarylist[5]);
+        summarybox.getChildren().addAll(summarrytitlelabel, summaryrow1label, summaryrow2label);
+        //Add vbox to hbox
+        tablehbox.getChildren().add(summarybox);
+        HBox.setMargin(summarybox, new Insets(5,0,0,40));
 //Bar Graph Tab
         BarChartTab.setText("Bar Chart Tab");
         BarChartTab.setTooltip(new Tooltip("Page with a Barchart"));

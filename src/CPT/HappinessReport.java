@@ -24,6 +24,8 @@ public class HappinessReport {
     private double dblFreedom;
     private double dblGenerosity;
     private double dblCorruption;
+    //Summary Variable
+    private ObservableList<Double> sortingarray;
  
     public HappinessReport(int givenRanking, String givenCountry, double givenScore, double givenGDP, double givenSocial, double givenExpectancy,
     double givenFreedom, double givenGenerosity, double givenCorruption) {
@@ -191,5 +193,108 @@ public class HappinessReport {
         }
         // Return the list
         return searchedList;
+    }
+
+    public static ObservableList<Double> grabAllScores(ObservableList<HappinessReport> data) {
+        ObservableList<Double> temp = FXCollections.observableArrayList();
+        for (HappinessReport test : data) {
+            temp.add(test.getScore());
+        }
+        return temp;
+    }
+//Data Summary Methods
+
+    public static String[] getDataSummary(ObservableList<HappinessReport> data) {
+        ObservableList<Double> temp = grabAllScores(data);
+        mergesort(temp);
+        String[] SummaryData = new String[6];
+        int intcount = 0;
+        double dblmax = 0.0;
+        double dblmin = 0.0;
+        double dblaverageScore = 0.0;
+        double dblmedianScore = 0.0;
+        double dbldeviationScore = 0.0;
+        double dbltotal = 0;
+        // Get Count
+        intcount = temp.size();
+        //System.out.println(intcount);
+        // Get Total
+        for (int intx = 0; intx < intcount; intx++) {
+            dbltotal = dbltotal + temp.get(intx);
+        }
+        //Get Min & Max
+        dblmin = temp.get(intcount - 1);
+        dblmax = temp.get(0);
+        // Get Average
+        dblaverageScore = dbltotal / intcount;
+        dblaverageScore = Math.round(dblaverageScore * 100.0) / 100.0;
+        // Get Median
+        // Odd & Even Case
+        if (intcount % 2 != 0) {
+            dblmedianScore = temp.get((intcount - 1) / 2);
+        } else {
+            dblmedianScore = temp.get((intcount - 1) / 2) + temp.get(((intcount - 1) / 2) - 1);
+            dblmedianScore = dblmedianScore / 2;
+        }
+        dblmedianScore = Math.round(dblmedianScore * 100.0) / 100.0;
+        // Get Standard Deviation
+        for (int intx = 0; intx < intcount; intx++) {
+            dbldeviationScore = dbldeviationScore + Math.pow(temp.get(intx) - dblaverageScore, 2);
+        }
+        dbldeviationScore = dbldeviationScore / intcount;
+        dbldeviationScore = Math.sqrt(dbldeviationScore);
+        dbldeviationScore = Math.round(dbldeviationScore * 100.0) / 100.0;
+
+        SummaryData[0] = String.valueOf(intcount);
+        SummaryData[1] = String.valueOf(dblmax);
+        SummaryData[2] = String.valueOf(dblmin);
+        SummaryData[3] = String.valueOf(dblaverageScore);
+        SummaryData[4] = String.valueOf(dblmedianScore);
+        SummaryData[5] = String.valueOf(dbldeviationScore);
+        return SummaryData;
+    }
+
+    // Mergesort Method (Using CodeHS method)
+    private static ObservableList<Double> mergesort(ObservableList<Double> temp) {
+        ObservableList<Double> sortingarray = FXCollections.observableArrayList(temp);
+        mergeSortHelper(sortingarray, 0, temp.size() - 1);
+        return sortingarray;
+    }
+
+    private static void mergeSortHelper(ObservableList<Double> sortingarray, int from, int to) {
+        if (to - from >= 1)
+        {
+            int mid = (from + to) / 2;
+            mergeSortHelper(sortingarray, from, mid);
+            mergeSortHelper(sortingarray, mid + 1, to);
+            merge(sortingarray, from, mid, to);
+        }
+    }
+
+    private static void merge(ObservableList<Double> sortingarray, int from, int mid, int to) {
+        int lefttracker = from;
+        int righttracker = mid + 1;
+        int temptracker = from;
+
+        while (lefttracker <= mid && righttracker <= to) {
+            if (sortingarray.get(temptracker) > sortingarray.get(righttracker)) {
+                sortingarray.set(temptracker,sortingarray.get(lefttracker));
+                lefttracker++;
+            } else {
+                sortingarray.set(temptracker,sortingarray.get(righttracker));
+                righttracker++;
+            }
+            temptracker++;
+        }
+
+        while (righttracker <= to) {
+            sortingarray.set(temptracker,sortingarray.get(righttracker));
+            righttracker++;
+            temptracker++;
+        }
+
+        for (int intx = from ; intx <= to ; intx++) {
+           sortingarray.set(intx, sortingarray.get(intx));
+        }
     }
 }
