@@ -12,5 +12,8 @@ Link: https://www.kaggle.com/unsdsn/world-happiness?select=2019.csv
 ## Inspiration
 I decided to use this dataset because of how much I value the happiness of myself and others, I believe that even if one has all the money in the world but isn’t truly happy then there is no point in having that money. I was also interested in learning more about how we scientifically decide how we measure happiness as it isn’t something that can be easily measured. I wanted to get to know more about the state of the world and am even more curious about the World Happiness Report for 2020 as covid-19 and the lack of social interaction is sure to make an impact on whether people find themselves happy. I chose this dataset mostly due to my own curiosity.
 
-#Program Demo Video
-[The Video](../blob/master/src/CPT/ProgramVideo.mkv)
+# Program Demo Video
+[Program Demo](https://drive.google.com/file/d/1vI-ThVu8Jx8erEzBis7Eg2lNkHAhGCuX/view?usp=sharing)
+
+# Course Connection Video
+[Course Connections](https://drive.google.com/file/d/1ggHYwFTWyklRax0Sb0RjYBTWlVYnN8QU/view?usp=sharing)
