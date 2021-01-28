@@ -3,13 +3,6 @@ package CPT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/** 
- * Sort class file
- * 
- * @author V.Hung
- * 
- * 
- */
 public class Sorting {
     public static  ObservableList<HappinessReport> sort(ObservableList<HappinessReport> load, String GLorLG) {
         ObservableList<HappinessReport> sortingarray = FXCollections.observableArrayList(load);
