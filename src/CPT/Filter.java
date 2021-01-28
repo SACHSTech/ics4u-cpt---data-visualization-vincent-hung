@@ -3,7 +3,7 @@ package CPT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Database {
+public class Filter {
     public static  ObservableList<HappinessReport> filter(ObservableList<HappinessReport> load, int intamount) {
         ObservableList<HappinessReport> sortedarray = FXCollections.observableArrayList(load);
         ObservableList<HappinessReport> returnarray = FXCollections.observableArrayList();

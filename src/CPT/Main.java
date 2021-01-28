@@ -88,20 +88,27 @@ public class Main extends Application {
         Label tablelabel = new Label("Search Country");
         TextField searchbox = new TextField();
         Button searchbutton = new Button("Search");
+        Button resetbutton = new Button("Reset");
 
         searchbutton.setOnAction((ActionEvent actionEvent) -> {
                 loaddata = HappinessReport.search(searchbox.getText());
                 tableborderPane.setCenter(createTable((loaddata)));
                 primaryStage.setResizable(false);
         });
+        resetbutton.setOnAction((ActionEvent actionEvent) -> {
+            searchbox.setText("");
+            tableborderPane.setCenter(createTable((data)));
+            primaryStage.setResizable(false);
+    });
 
         //Hbox
         HBox tablehbox = new HBox();
-        tablehbox.getChildren().addAll(tablelabel, searchbox, searchbutton);
+        tablehbox.getChildren().addAll(tablelabel, searchbox, searchbutton, resetbutton);
         tablehbox.setPrefHeight(60);
         HBox.setMargin(tablelabel, new Insets(20,0,0,10));
         HBox.setMargin(searchbox, new Insets(18,0,0,10));
         HBox.setMargin(searchbutton, new Insets(18,0,0,10));
+        HBox.setMargin(resetbutton, new Insets(18,0,0,10));
         //Add hbox to borderPane
         tableborderPane.setTop(tablehbox);
         //Grabbing Summary Data String
@@ -147,17 +154,17 @@ public class Main extends Application {
         Button filtertop10button = new Button("Filter Top 10 Current");
         Button filtertop5button = new Button("Filter Top 5 Current ");
         filtertop5button.setOnAction((ActionEvent actionEvent) -> {
-            loaddata = Database.filter(loaddata, 5);
+            loaddata = Filter.filter(loaddata, 5);
             tableborderPane.setCenter(createTable((loaddata)));
             primaryStage.setResizable(false);
         });
         filtertop10button.setOnAction((ActionEvent actionEvent) -> {
-            loaddata = Database.filter(loaddata, 10);
+            loaddata = Filter.filter(loaddata, 10);
             tableborderPane.setCenter(createTable((loaddata)));
             primaryStage.setResizable(false);
         });
         buttonrightVBox.getChildren().addAll(filtertop5button, filtertop10button);
-        VBox.setMargin(filtertop5button, new Insets(5,0,10,10));
+        VBox.setMargin(filtertop5button, new Insets(5,0,5,10));
         VBox.setMargin(filtertop10button, new Insets(5,0,5,10));
         //Adding to main Hbox
         buttonHBox.getChildren().addAll(buttonleftVBox, buttonrightVBox);
