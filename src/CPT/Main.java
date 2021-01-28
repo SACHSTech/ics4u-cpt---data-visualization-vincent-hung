@@ -61,6 +61,7 @@ public class Main extends Application {
         final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
         primaryStage.setTitle("World Happiness Report");
         tabUI(searchitem, data, primaryStage);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
@@ -91,7 +92,7 @@ public class Main extends Application {
         searchbutton.setOnAction((ActionEvent actionEvent) -> {
                 loaddata = HappinessReport.search(searchbox.getText());
                 tableborderPane.setCenter(createTable((loaddata)));
-                primaryStage.setHeight(800);
+                primaryStage.setResizable(false);
         });
 
         //Hbox
@@ -131,25 +132,33 @@ public class Main extends Application {
         sortrankDescendingbutton.setOnAction((ActionEvent actionEvent) -> {
             loaddata = Sorting.sort(loaddata, "GL");
             tableborderPane.setCenter(createTable((loaddata)));
-            primaryStage.setHeight(800);
+            primaryStage.setResizable(false);
         });
         Button sortrankAscendingbutton = new Button("Sort Ascending Rank  ");
         sortrankAscendingbutton.setOnAction((ActionEvent actionEvent) -> {
             loaddata = Sorting.sort(loaddata, "LG");
             tableborderPane.setCenter(createTable((loaddata)));
-            primaryStage.setHeight(800);
+            primaryStage.setResizable(false);
         });
         buttonleftVBox.getChildren().addAll(sortrankDescendingbutton, sortrankAscendingbutton);
         VBox.setMargin(sortrankDescendingbutton, new Insets(5,0,5,0));
         VBox.setMargin(sortrankAscendingbutton, new Insets(5,0,5,0));
         //Right Buttons
-        Button filtertop10button = new Button("Filter Top 10");
+        Button filtertop10button = new Button("Filter Top 10 Current");
+        Button filtertop5button = new Button("Filter Top 5 Current ");
+        filtertop5button.setOnAction((ActionEvent actionEvent) -> {
+            loaddata = Database.filter(loaddata, 5);
+            tableborderPane.setCenter(createTable((loaddata)));
+            primaryStage.setResizable(false);
+        });
         filtertop10button.setOnAction((ActionEvent actionEvent) -> {
             loaddata = Database.filter(loaddata, 10);
             tableborderPane.setCenter(createTable((loaddata)));
-            primaryStage.setHeight(800);
+            primaryStage.setResizable(false);
         });
-        buttonrightVBox.getChildren().addAll(filtertop10button);
+        buttonrightVBox.getChildren().addAll(filtertop5button, filtertop10button);
+        VBox.setMargin(filtertop5button, new Insets(5,0,10,10));
+        VBox.setMargin(filtertop10button, new Insets(5,0,5,10));
         //Adding to main Hbox
         buttonHBox.getChildren().addAll(buttonleftVBox, buttonrightVBox);
         tablehbox.getChildren().add(buttonHBox);

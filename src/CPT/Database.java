@@ -5,12 +5,13 @@ import javafx.collections.ObservableList;
 
 public class Database {
     public static  ObservableList<HappinessReport> filter(ObservableList<HappinessReport> load, int intamount) {
-        ObservableList<HappinessReport> sortedarray = FXCollections.observableArrayList();
+        ObservableList<HappinessReport> sortedarray = FXCollections.observableArrayList(load);
         ObservableList<HappinessReport> returnarray = FXCollections.observableArrayList();
         sortedarray = Sorting.sort(load, "LG");
         int intx = 0;
-		while (intx < intamount && intx < sortedarray.size()) {
+		while (intx < intamount) {
             returnarray.add(sortedarray.get(intx));
+            intx++;
         }
         return returnarray;
 
