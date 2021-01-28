@@ -127,14 +127,29 @@ public class Main extends Application {
         VBox buttonrightVBox = new VBox();
         VBox buttonleftVBox = new VBox();
         //Left Buttons
-        Button sortrankGLbutton = new Button("G->L Rank");
-        sortrankGLbutton.setOnAction((ActionEvent actionEvent) -> {
-            loaddata = Sorting.sort(data, "GL");
+        Button sortrankDescendingbutton = new Button("Sort Descending Rank");
+        sortrankDescendingbutton.setOnAction((ActionEvent actionEvent) -> {
+            loaddata = Sorting.sort(loaddata, "GL");
             tableborderPane.setCenter(createTable((loaddata)));
             primaryStage.setHeight(800);
         });
-        Button sortrankLGbutton = new Button("L->G Rank");
-        buttonleftVBox.getChildren().addAll(sortrankGLbutton, sortrankLGbutton);
+        Button sortrankAscendingbutton = new Button("Sort Ascending Rank  ");
+        sortrankAscendingbutton.setOnAction((ActionEvent actionEvent) -> {
+            loaddata = Sorting.sort(loaddata, "LG");
+            tableborderPane.setCenter(createTable((loaddata)));
+            primaryStage.setHeight(800);
+        });
+        buttonleftVBox.getChildren().addAll(sortrankDescendingbutton, sortrankAscendingbutton);
+        VBox.setMargin(sortrankDescendingbutton, new Insets(5,0,5,0));
+        VBox.setMargin(sortrankAscendingbutton, new Insets(5,0,5,0));
+        //Right Buttons
+        Button filtertop10button = new Button("Filter Top 10");
+        filtertop10button.setOnAction((ActionEvent actionEvent) -> {
+            loaddata = Database.filter(loaddata, 10);
+            tableborderPane.setCenter(createTable((loaddata)));
+            primaryStage.setHeight(800);
+        });
+        buttonrightVBox.getChildren().addAll(filtertop10button);
         //Adding to main Hbox
         buttonHBox.getChildren().addAll(buttonleftVBox, buttonrightVBox);
         tablehbox.getChildren().add(buttonHBox);

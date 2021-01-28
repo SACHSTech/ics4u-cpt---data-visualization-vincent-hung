@@ -25,34 +25,65 @@ public class Sorting {
         int lefttracker = from;
         int righttracker = mid + 1;
         int temptracker = from;
-
-        while (lefttracker <= mid && righttracker <= to) {
-                if (sortingarray.get(temptracker).getRanking() > sortingarray.get(righttracker).getRanking()) {
-                temp[temptracker] = sortingarray.get(lefttracker);
-                //sortingarray.set(temptracker,sortingarray.get(lefttracker));
-                lefttracker++;
-                } else {
-                temp[temptracker] = sortingarray.get(righttracker);
-                //sortingarray.set(temptracker,sortingarray.get(righttracker));
-                righttracker++;
-                System.out.println(righttracker);
+        if (GLorLG.equals("GL")) {
+            while (lefttracker <= mid && righttracker <= to) {
+                    if (sortingarray.get(temptracker).getRanking() > sortingarray.get(righttracker).getRanking()) {
+                    temp[temptracker] = sortingarray.get(lefttracker);
+                    //sortingarray.set(temptracker,sortingarray.get(lefttracker));
+                    lefttracker++;
+                    } else {
+                    temp[temptracker] = sortingarray.get(righttracker);
+                    //sortingarray.set(temptracker,sortingarray.get(righttracker));
+                    righttracker++;
+                    //System.out.println(righttracker);
+                    }
+                temptracker++;
                 }
-            temptracker++;
+            while (lefttracker <= mid) {
+                temp[temptracker] = sortingarray.get(lefttracker);
+                lefttracker++;
+                temptracker++;
             }
-        while (lefttracker <= mid) {
-            temp[temptracker] = sortingarray.get(lefttracker);
-            lefttracker++;
-            temptracker++;
-        }
-        while (righttracker <= to) {
-            //sortingarray.set(temptracker,sortingarray.get(righttracker));
-            temp[temptracker] = sortingarray.get(righttracker);
-            righttracker++;
-            temptracker++;
-        }
+            while (righttracker <= to) {
+                //sortingarray.set(temptracker,sortingarray.get(righttracker));
+                temp[temptracker] = sortingarray.get(righttracker);
+                righttracker++;
+                temptracker++;
+            }
 
-        for (temptracker = from ; temptracker <= to ; temptracker++) {
-           sortingarray.set(temptracker, temp[temptracker]);
+            for (temptracker = from ; temptracker <= to ; temptracker++) {
+            sortingarray.set(temptracker, temp[temptracker]);
+            }
+        }
+        if (GLorLG.equals("LG")) {
+            while (lefttracker <= mid && righttracker <= to) {
+                    if (sortingarray.get(temptracker).getRanking() < sortingarray.get(righttracker).getRanking()) {
+                    temp[temptracker] = sortingarray.get(lefttracker);
+                    //sortingarray.set(temptracker,sortingarray.get(lefttracker));
+                    lefttracker++;
+                    } else {
+                    temp[temptracker] = sortingarray.get(righttracker);
+                    //sortingarray.set(temptracker,sortingarray.get(righttracker));
+                    righttracker++;
+                    //System.out.println(righttracker);
+                    }
+                temptracker++;
+                }
+            while (lefttracker <= mid) {
+                temp[temptracker] = sortingarray.get(lefttracker);
+                lefttracker++;
+                temptracker++;
+            }
+            while (righttracker <= to) {
+                //sortingarray.set(temptracker,sortingarray.get(righttracker));
+                temp[temptracker] = sortingarray.get(righttracker);
+                righttracker++;
+                temptracker++;
+            }
+
+            for (temptracker = from ; temptracker <= to ; temptracker++) {
+            sortingarray.set(temptracker, temp[temptracker]);
+            }
         }
     }
 }

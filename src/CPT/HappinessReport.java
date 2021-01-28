@@ -184,10 +184,10 @@ public class HappinessReport {
         ObservableList<HappinessReport> searchedList = FXCollections.observableArrayList();
         String filename = "2019";
         final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
-
+        searchitem = searchitem.toLowerCase();
         // Linear search
         for (HappinessReport test: data) {
-            if (test.getCountry().contains(searchitem)) {
+            if (test.getCountry().toLowerCase().contains(searchitem)) {
                 searchedList.add(test);
             }
         }
