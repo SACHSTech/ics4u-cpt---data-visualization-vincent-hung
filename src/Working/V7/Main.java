@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +20,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -59,8 +57,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String filename = "2019";
         final ObservableList<HappinessReport> data = FXCollections.observableArrayList(HappinessReport.loadEntries(filename));
-        primaryStage.setTitle("World Happiness Report");
+        //primaryStage.setScene(new Scene(createTable(data)));
+        //ObservableList<String> CountryList = (ObservableList<String>) data.get(1);
+        //System.out.println(data.get(0).strCountryProperty().getValue());
+        primaryStage.setTitle("Window");
         tabUI(searchitem, data, primaryStage);
+        //summarylist = HappinessReport.getDataSummary(data);
+        //System.out.println(summarylist[0] + "\n" + summarylist[1] + "\n" + summarylist[2] + "\n" + summarylist[3] + "\n" + summarylist[4] + "\n" + summarylist[5]);
         primaryStage.show();
     }
 
@@ -87,6 +90,7 @@ public class Main extends Application {
         Label tablelabel = new Label("Search Country");
         TextField searchbox = new TextField();
         Button searchbutton = new Button("Search");
+        summarydata = (HappinessReport.grabAllScores(data));
 
         searchbutton.setOnAction((ActionEvent actionEvent) -> {
                 loaddata = HappinessReport.search(searchbox.getText());
@@ -115,18 +119,10 @@ public class Main extends Application {
         //Add vbox to hbox
         tablehbox.getChildren().add(summarybox);
         HBox.setMargin(summarybox, new Insets(5,0,0,40));
-        //Vertical Seperator
-        Separator verticalSeparator = new Separator();
-        verticalSeparator.setOrientation(Orientation.VERTICAL);
-        //Add Separator to hbox
-        tablehbox.getChildren().add(verticalSeparator);
-        HBox.setMargin(verticalSeparator, new Insets(5,0,0,0));
 //Bar Graph Tab
         BarChartTab.setText("Bar Chart Tab");
         BarChartTab.setTooltip(new Tooltip("Page with a Barchart"));
-//Line Chart Tab
-        LineGraphTab.setText("Line Graph Tab");
-        LineGraphTab.setTooltip(new Tooltip("Page with a Linegraph"));
+
 //Finished Tabs
         //Add tableTab
         tabPane.getTabs().add(0, TableTab);
@@ -134,9 +130,6 @@ public class Main extends Application {
         //Add Bar Graph Tab
         tabPane.getTabs().add(1, BarChartTab);
         BarChartTab.setContent(createBarGraph(data));
-        //Add Line Graph Tab
-        tabPane.getTabs().add(2, LineGraphTab);
-        LineGraphTab.setContent(createLineGraph(data));
         //Show Tab Scene
         primaryStage.setScene(new Scene(tabPane));
         primaryStage.show();
@@ -215,6 +208,7 @@ public class Main extends Application {
             barChartSeries.getData().add(new XYChart.Data(String.valueOf(data.get(intx).getCountry()), data.get(intx).getScore()));
             barchart.getData().add(barChartSeries);
         }
+        barchart.setTitle("Horizontal Bar Chart Example");
         barchart.setLegendVisible(false);
         return barchart;
     }
@@ -226,16 +220,17 @@ public class Main extends Application {
         xAxis.setLabel("Country");
         //Yaxis Creation
         yAxis = new NumberAxis();
-        yAxis.setLabel("Life Expectancy Score");
+        yAxis.setLabel("Life Expectancy (Years)");
         //Chart Creation
         linechart = new LineChart<>(xAxis, yAxis);
-        linechart.setTitle("Life Expectancy Score Vs. Country");
+        linechart.setTitle("Linechart");
         //Country and Score Data load into chart
         for (int intx = 0; intx < data.size(); intx++) {
             XYChart.Series LineChartSeries = new XYChart.Series<>();
             LineChartSeries.getData().add(new XYChart.Data(String.valueOf(data.get(intx).getCountry()), data.get(intx).getExpectancy()));
             linechart.getData().add(LineChartSeries);
         }
+        linechart.setTitle("Horizontal Bar Chart Example");
         linechart.setVerticalGridLinesVisible(false);
         linechart.setLegendVisible(false);
         return linechart;
