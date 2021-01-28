@@ -111,7 +111,7 @@ public class Main extends Application {
         //Button Actions Search and Reset
         searchbutton.setOnAction((ActionEvent actionEvent) -> {
             loaddata = HappinessReport.search(searchbox.getText());
-            tableborderPane.setCenter(createTable(loaddata));
+            tableborderPane.setCenter(createTable((loaddata)));
             primaryStage.setResizable(false);
         });
         resetbutton.setOnAction((ActionEvent actionEvent) -> {
@@ -275,6 +275,7 @@ public class Main extends Application {
         //View Individual Data Action
         tableView.setOnMousePressed(e -> {
             if (e.getClickCount() == 2 && !tableView.getSelectionModel().isEmpty()) {
+                //clickdata.getItems().clear();
                 popupdetails((HappinessReport) tableView.getSelectionModel().getSelectedItem());
             }
         });
